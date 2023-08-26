@@ -5,12 +5,13 @@ import GlobalStyle from './src/assets/styles/style';
 // import Login from './src/screens/auth/Login';
 // import Register from './src/screens/auth/Register';
 import Home from './src/screens/Home';
+import SearchRecipe from './src/screens/Search';
 import {fonts} from './src/assets/fonts';
 
 const App = () => {
   return (
     <>
-      <Home />
+      <SearchRecipe />
     </>
   );
 };
