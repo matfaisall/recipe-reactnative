@@ -1,5 +1,5 @@
 {
-  "name": "RecipeRN",
+  "name": "recipe_native",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,9 +10,20 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/material-bottom-tabs": "^6.2.16",
+    "@react-navigation/native-stack": "^6.9.13",
+    "@react-navigation/stack": "^6.3.17",
     "react": "18.1.0",
     "react-feather": "^2.0.10",
     "react-native": "0.70.6",
+    "react-native-dropdown-picker": "^5.4.6",
+    "react-native-gesture-handler": "2.9.0",
+    "react-native-image-picker": "^5.6.1",
+    "react-native-paper": "^5.10.3",
+    "react-native-reanimated": "^3.4.2",
+    "react-native-safe-area-context": "^4.7.1",
+    "react-native-screens": "^3.24.0",
     "react-native-vector-icons": "^10.0.0"
   },
   "devDependencies": {

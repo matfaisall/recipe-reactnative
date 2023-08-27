@@ -12,6 +12,7 @@ const GlobalStyle = StyleSheet.create({
   },
 
   container: {
+    flex: 1,
     paddingHorizontal: 16,
     fontFamily: fonts.primary.medium,
     backgroundColor: '#FFFFFF',

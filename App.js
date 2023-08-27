@@ -1,41 +1,95 @@
 import React from 'react';
+import 'react-native-gesture-handler';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
+
 import {StyleSheet, Text, View} from 'react-native';
 import GlobalStyle from './src/assets/styles/style';
+import Icon from 'react-native-vector-icons/Feather';
 
-// import Login from './src/screens/auth/Login';
-// import Register from './src/screens/auth/Register';
-import Home from './src/screens/Home';
-import SearchRecipe from './src/screens/Search';
-import DetailPopularRecipe from './src/screens/DetailPopularRecipe';
+import {
+  Register,
+  Login,
+  Home,
+  SearchRecipe,
+  DetailPopularRecipe,
+  AddRecipe,
+  Chat,
+  Profile,
+} from './src/screens';
+// import Home from './src/screens/Home';
+// import SearchRecipe from './src/screens/Search';
+// import DetailPopularRecipe from './src/screens/DetailPopularRecipe';
 
 import {fonts} from './src/assets/fonts';
 
-const App = () => {
+const HomeScreen = () => {
   return (
-    <>
-      <DetailPopularRecipe />
-    </>
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          // tabBarLabel: false,
+          tabBarIcon: () => {
+            return <Icon name="home" size={24} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Add Recipe"
+        component={AddRecipe}
+        options={{
+          tabBarIcon: () => {
+            return <Icon name="plus-square" size={24} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          tabBarIcon: () => {
+            return <Icon name="message-circle" size={24} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: () => {
+            return <Icon name="user" size={24} />;
+          },
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 
-// const styles = StyleSheet.create({
-//   background: {
-//     backgroundColor: 'white',
-//     flex: 1,
-//   },
-//   sectionContainer: {
-//     marginTop: 32,
-//     paddingHorizontal: 24,
-//   },
-//   sectionTitle: {
-//     fontSize: 24,
-//     color: 'chocolate',
-//     fontFamily: fonts.primary.medium,
-//   },
-//   highlight: {
-//     fontWeight: '700',
-//     color: 'gray',
-//   },
-// });
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{headerShown: false}}
+        />
+
+        {/* <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Settings" component={Settings} /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+const styles = StyleSheet.create({});
 
 export default App;

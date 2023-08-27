@@ -26,7 +26,7 @@ import GlobalStyle from '../../assets/styles/style';
 
 const Home = () => {
   return (
-    <ScrollView style={[GlobalStyle.container, {marginTop: 16}]}>
+    <ScrollView style={[GlobalStyle.container, {paddingTop: 16}]}>
       <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
 
       <View style={styles.search__wrapper}>
@@ -73,7 +73,7 @@ const Home = () => {
             }}>
             <Text style={styles.textTitle}>New Recipe</Text>
             <TouchableOpacity>
-              <Text>More info</Text>
+              <Text style={{color: '#000'}}>More info</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -86,17 +86,21 @@ const Home = () => {
             justifyContent: 'space-between',
             marginTop: 16,
           }}>
-          <TouchableOpacity>
+          <TouchableOpacity style={{alignItems: 'center'}}>
             <Image source={menu1} style={{width: 64, height: 64}} />
+            <Text style={{color: 'black'}}>Soup</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity style={{alignItems: 'center'}}>
             <Image source={menu24} style={{width: 64, height: 64}} />
+            <Text style={{color: 'black'}}>Chicken</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity style={{alignItems: 'center'}}>
             <Image source={menu3} style={{width: 64, height: 64}} />
+            <Text style={{color: 'black'}}>Seafood</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity style={{alignItems: 'center'}}>
             <Image source={menu24} style={{width: 64, height: 64}} />
+            <Text style={{color: 'black'}}>Dessert</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -142,6 +146,7 @@ const styles = StyleSheet.create({
   // Styleing for popular recipe
   textTitle: {
     fontSize: 16,
+    color: '#000',
   },
   textSubTitle: {
     color: GlobalStyle.colors.font_secondary,
