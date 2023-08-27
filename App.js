@@ -6,12 +6,14 @@ import GlobalStyle from './src/assets/styles/style';
 // import Register from './src/screens/auth/Register';
 import Home from './src/screens/Home';
 import SearchRecipe from './src/screens/Search';
+import DetailPopularRecipe from './src/screens/DetailPopularRecipe';
+
 import {fonts} from './src/assets/fonts';
 
 const App = () => {
   return (
     <>
-      <SearchRecipe />
+      <DetailPopularRecipe />
     </>
   );
 };

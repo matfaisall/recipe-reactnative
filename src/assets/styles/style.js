@@ -14,6 +14,7 @@ const GlobalStyle = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     fontFamily: fonts.primary.medium,
+    backgroundColor: '#FFFFFF',
   },
 
   buttonPrimary: {

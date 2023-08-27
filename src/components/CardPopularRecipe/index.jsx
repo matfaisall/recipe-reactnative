@@ -1,10 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const CardPopularRecipe = ({data}) => {
+const CardPopularRecipe = () => {
   console.log('card', data);
   // console.log(props[0]);
-  return <Text style={styles.text}></Text>;
+  return (
+    <View>
+      <Text></Text>
+    </View>
+  );
 };
 
 export default CardPopularRecipe;
