@@ -22,6 +22,7 @@ import {
   Chat,
   Profile,
   MyRecipe,
+  DetailIngredients,
 } from './src/screens';
 // import Home from './src/screens/Home';
 // import SearchRecipe from './src/screens/Search';
@@ -88,8 +89,16 @@ const App = () => {
           component={MyRecipe}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen name="Profile" component={Profile} /> */}
-        {/* <Stack.Screen name="Settings" component={Settings} /> */}
+        <Stack.Screen name="SearchRecipe" component={SearchRecipe} />
+        <Stack.Screen
+          name="DetailIngredients"
+          component={DetailIngredients}
+          options={{
+            headerTitle: '',
+            headerTransparent: true,
+            headerTintColor: '#EFC81A',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import fakeImage from '../../assets/images/AuthPhoto.png';
 
-const MyRecipe = () => {
+const MyRecipe = ({navigation}) => {
   return (
     <View style={[{paddingTop: 40}]}>
       <StatusBar backgroundColor="#F5F5F5" translucent={true} />
@@ -32,7 +32,9 @@ const MyRecipe = () => {
                 <Image source={fakeImage} style={styles.styleImage} />
               </View>
               <View style={{marginStart: 8}}>
-                <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                <Text
+                  style={{fontSize: 16, fontWeight: 'bold'}}
+                  onPress={() => navigation.navigate('DetailIngredients')}>
                   Nasi Goreng Bali
                 </Text>
                 <Text>Main Menu</Text>

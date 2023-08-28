@@ -24,7 +24,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import GlobalStyle from '../../assets/styles/style';
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <ScrollView style={[GlobalStyle.container]}>
       <View style={{paddingTop: 40}}>
@@ -73,7 +73,11 @@ const Home = () => {
               }}>
               <Text style={styles.textTitle}>New Recipe</Text>
               <TouchableOpacity>
-                <Text style={{color: '#000'}}>More info</Text>
+                <Text
+                  style={{color: '#000'}}
+                  onPress={() => navigation.navigate('SearchRecipe')}>
+                  More info
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
