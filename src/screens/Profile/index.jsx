@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import fakeAvatar from '../../assets/images/fakeAvatar.jpg';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <StatusBar backgroundColor="transparent" translucent={true} />
@@ -50,7 +50,7 @@ const Profile = () => {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('My Recipe')}>
             <View style={styles.list_wrapper}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Icon

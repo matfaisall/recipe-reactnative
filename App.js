@@ -21,6 +21,7 @@ import {
   AddRecipe,
   Chat,
   Profile,
+  MyRecipe,
 } from './src/screens';
 // import Home from './src/screens/Home';
 // import SearchRecipe from './src/screens/Search';
@@ -82,9 +83,13 @@ const App = () => {
           options={{headerShown: false}}
         />
 
-        {/* <Stack.Screen name="Notifications" component={Notifications} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Settings" component={Settings} /> */}
+        <Stack.Screen
+          name="My Recipe"
+          component={MyRecipe}
+          options={{headerShown: false}}
+        />
+        {/* <Stack.Screen name="Profile" component={Profile} /> */}
+        {/* <Stack.Screen name="Settings" component={Settings} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -6,6 +6,7 @@ import DetailPopularRecipe from './DetailPopularRecipe';
 import AddRecipe from './AddRecipe';
 import Chat from './Chat';
 import Profile from './Profile';
+import MyRecipe from './MyRecipe';
 
 export {
   Login,
@@ -16,4 +17,5 @@ export {
   AddRecipe,
   Chat,
   Profile,
+  MyRecipe,
 };
