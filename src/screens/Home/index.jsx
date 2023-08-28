@@ -26,107 +26,108 @@ import GlobalStyle from '../../assets/styles/style';
 
 const Home = () => {
   return (
-    <ScrollView style={[GlobalStyle.container, {paddingTop: 16}]}>
-      <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-
-      <View style={styles.search__wrapper}>
-        <Icon
-          style={{paddingHorizontal: 8}}
-          name="search"
-          size={24}
-          color={GlobalStyle.colors.font_secondary}
-        />
-        <TextInput
-          placeholder="Search Pasta, Bread, etc"
-          placeholderTextColor={GlobalStyle.colors.font_secondary}
-          style={{color: GlobalStyle.colors.font_primary}}
-        />
-      </View>
-
-      <View style={{marginVertical: 16}}>
-        <View>
-          <Text style={styles.textTitle}>Popular Recipes</Text>
-          <Text style={styles.textSubTitle}>Popular Recipes</Text>
-        </View>
-        <View style={{marginTop: 12}}>
-          <FlatList
-            horizontal
-            // keyExtractor={item => item.id}
-            data={dataPopularRecipe}
-            renderItem={({item}) => (
-              <View style={styles.image__wrapper}>
-                <Image source={item.image} style={styles.image__style} />
-                <Text style={styles.title__overlay}>{item.title}</Text>
-              </View>
-            )}
+    <ScrollView style={[GlobalStyle.container]}>
+      <View style={{paddingTop: 40}}>
+        <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
+        <View style={styles.search__wrapper}>
+          <Icon
+            style={{paddingHorizontal: 8}}
+            name="search"
+            size={24}
+            color={GlobalStyle.colors.font_secondary}
+          />
+          <TextInput
+            placeholder="Search Pasta, Bread, etc"
+            placeholderTextColor={GlobalStyle.colors.font_secondary}
+            style={{color: GlobalStyle.colors.font_primary}}
           />
         </View>
-      </View>
 
-      <View style={{marginVertical: 16}}>
-        <View>
+        <View style={{marginVertical: 16}}>
+          <View>
+            <Text style={styles.textTitle}>Popular Recipes</Text>
+            <Text style={styles.textSubTitle}>Popular Recipes</Text>
+          </View>
+          <View style={{marginTop: 12}}>
+            <FlatList
+              horizontal
+              // keyExtractor={item => item.id}
+              data={dataPopularRecipe}
+              renderItem={({item}) => (
+                <View style={styles.image__wrapper}>
+                  <Image source={item.image} style={styles.image__style} />
+                  <Text style={styles.title__overlay}>{item.title}</Text>
+                </View>
+              )}
+            />
+          </View>
+        </View>
+
+        <View style={{marginVertical: 16}}>
+          <View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={styles.textTitle}>New Recipe</Text>
+              <TouchableOpacity>
+                <Text style={{color: '#000'}}>More info</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/* menu */}
           <View
             style={{
               flex: 1,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              marginTop: 16,
             }}>
-            <Text style={styles.textTitle}>New Recipe</Text>
-            <TouchableOpacity>
-              <Text style={{color: '#000'}}>More info</Text>
+            <TouchableOpacity style={{alignItems: 'center'}}>
+              <Image source={menu1} style={{width: 64, height: 64}} />
+              <Text style={{color: 'black'}}>Soup</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{alignItems: 'center'}}>
+              <Image source={menu24} style={{width: 64, height: 64}} />
+              <Text style={{color: 'black'}}>Chicken</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{alignItems: 'center'}}>
+              <Image source={menu3} style={{width: 64, height: 64}} />
+              <Text style={{color: 'black'}}>Seafood</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{alignItems: 'center'}}>
+              <Image source={menu24} style={{width: 64, height: 64}} />
+              <Text style={{color: 'black'}}>Dessert</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {/* menu */}
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 16,
-          }}>
-          <TouchableOpacity style={{alignItems: 'center'}}>
-            <Image source={menu1} style={{width: 64, height: 64}} />
-            <Text style={{color: 'black'}}>Soup</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{alignItems: 'center'}}>
-            <Image source={menu24} style={{width: 64, height: 64}} />
-            <Text style={{color: 'black'}}>Chicken</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{alignItems: 'center'}}>
-            <Image source={menu3} style={{width: 64, height: 64}} />
-            <Text style={{color: 'black'}}>Seafood</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{alignItems: 'center'}}>
-            <Image source={menu24} style={{width: 64, height: 64}} />
-            <Text style={{color: 'black'}}>Dessert</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Popular for you */}
-      <View style={{marginTop: 16}}>
-        <View>
-          <Text style={styles.textTitle}>Popular for you</Text>
-        </View>
-        <View style={{marginTop: 12}}>
-          <FlatList
-            horizontal
-            // keyExtractor={item => item.id}
-            data={dataPopularRecipe}
-            renderItem={({item}) => (
-              <View style={styles.image__wrapper_4U}>
-                <Image source={item.image} style={styles.image__style} />
-                <View style={styles.overlay_4U}>
-                  <Text style={styles.title4U}>{item.title}</Text>
-                  <Text style={{fontSize: 10, marginStart: 10}}>
-                    {item.desc}
-                  </Text>
+        {/* Popular for you */}
+        <View style={{marginTop: 16}}>
+          <View>
+            <Text style={styles.textTitle}>Popular for you</Text>
+          </View>
+          <View style={{marginTop: 12}}>
+            <FlatList
+              horizontal
+              // keyExtractor={item => item.id}
+              data={dataPopularRecipe}
+              renderItem={({item}) => (
+                <View style={styles.image__wrapper_4U}>
+                  <Image source={item.image} style={styles.image__style} />
+                  <View style={styles.overlay_4U}>
+                    <Text style={styles.title4U}>{item.title}</Text>
+                    <Text style={{fontSize: 10, marginStart: 10}}>
+                      {item.desc}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            )}
-          />
+              )}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>
