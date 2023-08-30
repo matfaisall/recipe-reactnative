@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../../assets/styles/style';
 
 import {
@@ -15,8 +16,23 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 
 import AuthPhoto from '../../assets/images/AuthPhoto.png';
+import {useDispatch} from 'react-redux';
+import {login} from '../../storages/actions/auth';
 
-const Login = () => {
+const Login = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+
+  console.log(form);
+
+  const handleLogin = () => {
+    dispatch(login(form));
+  };
+
   return (
     <>
       <SafeAreaView style={styles.wrapper}>
@@ -43,6 +59,7 @@ const Login = () => {
             <TextInput
               style={styles.inputForm}
               placeholder="Enter your email"
+              onChangeText={value => setForm({...form, email: value})}
               placeholderTextColor={GlobalStyle.colors.font_secondary}
               keyboardType="email-address"
             />
@@ -58,8 +75,8 @@ const Login = () => {
             </Text>
             <TextInput
               style={styles.inputForm}
-              Type="password"
               placeholder="Enter your password"
+              onChangeText={value => setForm({...form, password: value})}
               placeholderTextColor={GlobalStyle.colors.font_secondary}
               keyboardType="visible-password"
             />
@@ -69,7 +86,7 @@ const Login = () => {
             <Text style={styles.sub__title}>Forget Password</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonStyle}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={handleLogin}>
             <Text
               style={{
                 color: 'white',
@@ -81,7 +98,9 @@ const Login = () => {
           <View style={{flexDirection: 'row', justifyContent: 'center'}}>
             <Text style={styles.sub__title}>Don't have an account? </Text>
             <TouchableOpacity>
-              <Text style={{color: GlobalStyle.colors.font_primary}}>
+              <Text
+                style={{color: GlobalStyle.colors.font_primary}}
+                onPress={() => navigation.navigate('Register')}>
                 Sign Up
               </Text>
             </TouchableOpacity>

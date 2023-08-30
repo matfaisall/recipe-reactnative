@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import AuthPhoto from '../../assets/images/AuthPhoto.png';
 
-const Register = () => {
+const Register = ({navigation}) => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <StatusBar backgroundColor="transparent" translucent={true} />
@@ -89,7 +89,9 @@ const Register = () => {
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Text style={styles.sub__title}>have an account? </Text>
           <TouchableOpacity>
-            <Text style={{color: GlobalStyle.colors.font_primary}}>
+            <Text
+              style={{color: GlobalStyle.colors.font_primary}}
+              onPress={() => navigation.navigate('Login')}>
               Sign In
             </Text>
           </TouchableOpacity>
