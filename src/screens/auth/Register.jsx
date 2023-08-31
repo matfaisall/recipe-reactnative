@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import GlobalStyle from '../../assets/styles/style';
 
 import {
@@ -15,8 +15,23 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 
 import AuthPhoto from '../../assets/images/AuthPhoto.png';
+import {useDispatch} from 'react-redux';
+import {register} from '../../storages/actions/auth';
 
 const Register = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const handleRegister = () => {
+    dispatch(register(form, {navigation}));
+  };
+
+  console.log(form);
   return (
     <SafeAreaView style={styles.wrapper}>
       <StatusBar backgroundColor="transparent" translucent={true} />
@@ -40,6 +55,7 @@ const Register = ({navigation}) => {
           <TextInput
             style={styles.inputForm}
             placeholder="Enter your username"
+            onChangeText={value => setForm({...form, name: value})}
             placeholderTextColor={GlobalStyle.colors.font_secondary}
             keyboardType="email-address"
           />
@@ -55,6 +71,7 @@ const Register = ({navigation}) => {
           <TextInput
             style={styles.inputForm}
             placeholder="Enter your email"
+            onChangeText={value => setForm({...form, email: value})}
             placeholderTextColor={GlobalStyle.colors.font_secondary}
             keyboardType="email-address"
           />
@@ -72,12 +89,13 @@ const Register = ({navigation}) => {
             style={styles.inputForm}
             Type="password"
             placeholder="Enter your password"
+            onChangeText={value => setForm({...form, password: value})}
             placeholderTextColor={GlobalStyle.colors.font_secondary}
             keyboardType="visible-password"
           />
         </View>
 
-        <TouchableOpacity style={styles.buttonStyle}>
+        <TouchableOpacity style={styles.buttonStyle} onPress={handleRegister}>
           <Text
             style={{
               color: 'white',

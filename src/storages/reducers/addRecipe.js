@@ -4,21 +4,21 @@ const initialState = {
   isError: false,
 };
 
-export const loginReducer = (state = initialState, action) => {
+export const addRecipeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'AUTH_LOGIN_PENDING':
+    case 'ADD_RECIPE_PENDING':
       return {
         ...state,
         isLoading: true,
       };
-    case 'AUTH_LOGIN_SUCCESS':
+    case 'ADD_RECIPE_SUCCESS':
       return {
         ...state,
-        data: action.payload.data,
+        data: action.payload,
         isLoading: false,
         isError: false,
       };
-    case 'AUTH_LOGIN_FAILED':
+    case 'ADD_RECIPE_FAILED':
       return {
         ...state,
         data: null,

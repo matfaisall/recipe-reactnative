@@ -93,7 +93,11 @@ const Router = () => {
           component={MyRecipe}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="SearchRecipe" component={SearchRecipe} />
+        <Stack.Screen
+          name="SearchRecipe"
+          component={SearchRecipe}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="DetailIngredients"
           component={DetailIngredients}

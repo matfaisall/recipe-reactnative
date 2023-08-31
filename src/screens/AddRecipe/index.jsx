@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,31 +10,75 @@ import {
 } from 'react-native';
 
 import GlobalStyle from '../../assets/styles/style';
-
 import Icon from 'react-native-vector-icons/Feather';
-
 import DropDownPicker from 'react-native-dropdown-picker';
-import {launchImageLibrary} from 'react-native-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
+import {useDispatch, useSelector} from 'react-redux';
 
-const AddRecipe = () => {
+import {addRecipe} from '../../storages/actions/recipe.js';
+
+const AddRecipe = ({navigation}) => {
+  let jwtToken = useSelector(state => state.loginReducer);
+  console.log(jwtToken.data.token);
+
+  const dispatch = useDispatch();
+
+  const [title, setTitle] = useState('');
+  const [ingredients, setIngredients] = useState('');
+  const [recipePicture, setRecipePicture] = useState(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'Main', value: '1'},
-    {label: 'Appetizer', value: '2'},
-    {label: 'Dessert', value: '3'},
+    {label: 'Main course', value: '0'},
+    {label: 'Appetizer', value: '1'},
+    {label: 'Dessert', value: '2'},
   ]);
 
-  const [recipePicture, setRecipePicture] = useState(null);
+  const header = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${jwtToken.data.token}`,
+    },
+  };
 
-  const handleChoosePhoto = () => {
-    launchImageLibrary({noData: true}, response => {
-      console.log(response);
-      if (response) {
-        setRecipePicture(response);
+  const handlerPost = () => {
+    const dataRecipe = new FormData();
+
+    dataRecipe.append('title', title);
+    dataRecipe.append('ingredients', ingredients);
+    dataRecipe.append('category_id', value);
+    dataRecipe.append('image', {
+      uri: recipePicture.uri,
+      name: recipePicture.fileName,
+      type: recipePicture.type,
+    });
+
+    dispatch(addRecipe(dataRecipe, header, {navigation}));
+    // navigation.navigate('MyTab');
+  };
+
+  const galleryLaunch = () => {
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    123456;
+
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('user cancel galery');
+      } else if (response.error) {
+        console.log('Image picker error', response.errorMessage);
+      } else {
+        console.log(response.assets[0]);
+        setRecipePicture(response.assets[0]);
       }
     });
   };
+
+  useEffect(() => {});
 
   return (
     <View style={[GlobalStyle.container, {paddingTop: 16, flex: 1}]}>
@@ -60,6 +104,8 @@ const AddRecipe = () => {
           />
           <TextInput
             placeholder="Title"
+            onChangeText={value => setTitle(value)}
+            // value={inputData.title}
             placeholderTextColor={GlobalStyle.colors.font_secondary}
             style={{color: GlobalStyle.colors.font_primary, width: '100%'}}
           />
@@ -75,6 +121,8 @@ const AddRecipe = () => {
             multiline
             numberOfLines={6}
             placeholder="Ingredients"
+            onChangeText={value => setIngredients(value)}
+            // value={inputData.Ingredients}
             placeholderTextColor={GlobalStyle.colors.font_secondary}
             style={{color: GlobalStyle.colors.font_primary, width: '100%'}}
           />
@@ -83,7 +131,7 @@ const AddRecipe = () => {
         <View style={{marginTop: 16}}>
           <TouchableOpacity
             style={styles.buttonStyleImage}
-            onPress={handleChoosePhoto}>
+            onPress={() => galleryLaunch()}>
             <Text
               style={{
                 color: 'black',
@@ -112,7 +160,7 @@ const AddRecipe = () => {
         </View>
 
         <View style={{marginTop: 20}}>
-          <TouchableOpacity style={styles.buttonStyle}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={handlerPost}>
             <Text
               style={{
                 color: 'white',

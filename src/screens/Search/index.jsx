@@ -17,7 +17,7 @@ import menu3 from '../../assets/images/seafood.png';
 
 const SearchRecipe = () => {
   return (
-    <ScrollView style={[GlobalStyle.container, {marginTop: 16}]}>
+    <ScrollView style={[GlobalStyle.container, {paddingTop: 40}]}>
       <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
 
       <View style={styles.search__wrapper}>
@@ -28,6 +28,7 @@ const SearchRecipe = () => {
           color={GlobalStyle.colors.font_secondary}
         />
         <TextInput
+          focus={true}
           placeholder="Search Pasta, Bread, etc"
           placeholderTextColor={GlobalStyle.colors.font_secondary}
           style={{color: GlobalStyle.colors.font_primary}}

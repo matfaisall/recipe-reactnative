@@ -30,7 +30,8 @@ const Login = ({navigation}) => {
   console.log(form);
 
   const handleLogin = () => {
-    dispatch(login(form));
+    dispatch(login(form, {navigation}));
+    // navigation.navigate('MyTab');
   };
 
   return (
@@ -100,7 +101,7 @@ const Login = ({navigation}) => {
             <TouchableOpacity>
               <Text
                 style={{color: GlobalStyle.colors.font_primary}}
-                onPress={() => navigation.navigate('Register')}>
+                onPress={() => navigation.push('Register')}>
                 Sign Up
               </Text>
             </TouchableOpacity>

@@ -9,6 +9,8 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Touchable,
 } from 'react-native';
 
 // import components
@@ -29,7 +31,20 @@ const Home = ({navigation}) => {
     <ScrollView style={[GlobalStyle.container]}>
       <View style={{paddingTop: 40}}>
         <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-        <View style={styles.search__wrapper}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SearchRecipe')}
+          style={[styles.search__wrapper, {paddingVertical: 14}]}>
+          <Icon
+            style={{paddingHorizontal: 8}}
+            name="search"
+            size={24}
+            color={GlobalStyle.colors.font_secondary}
+          />
+          <View>
+            <Text style={{color: 'gray'}}>Search pasta, Bread, etc</Text>
+          </View>
+        </TouchableOpacity>
+        {/* <View style={styles.search__wrapper}>
           <Icon
             style={{paddingHorizontal: 8}}
             name="search"
@@ -41,7 +56,7 @@ const Home = ({navigation}) => {
             placeholderTextColor={GlobalStyle.colors.font_secondary}
             style={{color: GlobalStyle.colors.font_primary}}
           />
-        </View>
+        </View> */}
 
         <View style={{marginVertical: 16}}>
           <View>
@@ -73,11 +88,7 @@ const Home = ({navigation}) => {
               }}>
               <Text style={styles.textTitle}>New Recipe</Text>
               <TouchableOpacity>
-                <Text
-                  style={{color: '#000'}}
-                  onPress={() => navigation.navigate('SearchRecipe')}>
-                  More info
-                </Text>
+                <Text style={{color: '#000'}}>More info</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -169,7 +180,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     marginEnd: 16,
     maxHeight: 180,
-    backgroundColor: 'yellow',
+    backgroundColor: GlobalStyle.colors.bg_third,
     borderRadius: 10,
   },
 
