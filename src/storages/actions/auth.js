@@ -15,7 +15,7 @@ export const login =
       });
       console.log('1. auth login pending');
       const result = await axios.post(baseURL + `/auth/login`, form);
-      console.log('ini token', result.data.data.token);
+      // console.log('ini token', result.data.data.token);
 
       // pasangin
       AsyncStorage.setItem('token', result.data.data.token);

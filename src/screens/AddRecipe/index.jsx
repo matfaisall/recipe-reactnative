@@ -13,14 +13,11 @@ import GlobalStyle from '../../assets/styles/style';
 import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'react-native-image-picker';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {addRecipe} from '../../storages/actions/recipe.js';
 
 const AddRecipe = ({navigation}) => {
-  let jwtToken = useSelector(state => state.loginReducer);
-  console.log(jwtToken.data.token);
-
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
@@ -29,17 +26,10 @@ const AddRecipe = ({navigation}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'Main course', value: '0'},
-    {label: 'Appetizer', value: '1'},
-    {label: 'Dessert', value: '2'},
+    {label: 'Main course', value: '1'},
+    {label: 'Appetizer', value: '2'},
+    {label: 'Dessert', value: '3'},
   ]);
-
-  const header = {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${jwtToken.data.token}`,
-    },
-  };
 
   const handlerPost = () => {
     const dataRecipe = new FormData();
@@ -53,7 +43,7 @@ const AddRecipe = ({navigation}) => {
       type: recipePicture.type,
     });
 
-    dispatch(addRecipe(dataRecipe, header, {navigation}));
+    dispatch(addRecipe(dataRecipe, {navigation}));
     // navigation.navigate('MyTab');
   };
 
@@ -78,7 +68,9 @@ const AddRecipe = ({navigation}) => {
     });
   };
 
-  useEffect(() => {});
+  // useEffect(() => {
+  //   addRecipe();
+  // }, []);
 
   return (
     <View style={[GlobalStyle.container, {paddingTop: 16, flex: 1}]}>
