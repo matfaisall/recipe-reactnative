@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -14,10 +14,37 @@ import AwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 
 import GlobalStyle from '../../assets/styles/style';
 import menu3 from '../../assets/images/seafood.png';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {getMenu, searchMenu} from '../../storages/actions/recipe';
+import {FlatList} from 'react-native-gesture-handler';
 
 const SearchRecipe = () => {
+  const dispatch = useDispatch();
+
+  const menu = useSelector(state => state.menu);
+  // const {data, errorMessage, isLoading, isError} = menu.menu;
+  let data = menu.data;
+
+  const [search, setSearch] = useState('');
+  // console.log('ini search', search);
+
+  // const recipe = useSelector(state => state.getRecipeReducer);
+
+  // useEffect(() => {
+  //   dispatch(searchRecipe(search));
+  //   search == '' && dispatch(getRecipe());
+  // }, [search]);
+
+  console.log('ini data search', menu);
+
+  useEffect(() => {
+    dispatch(searchMenu(search));
+    search == '' && dispatch(getMenu());
+  }, [search]);
+
   return (
-    <ScrollView style={[GlobalStyle.container, {paddingTop: 40}]}>
+    <View style={[GlobalStyle.container, {paddingTop: 40}]}>
       <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
 
       <View style={styles.search__wrapper}>
@@ -29,6 +56,8 @@ const SearchRecipe = () => {
         />
         <TextInput
           focus={true}
+          value={search}
+          onChangeText={value => setSearch(value)}
           placeholder="Search Pasta, Bread, etc"
           placeholderTextColor={GlobalStyle.colors.font_secondary}
           style={{color: GlobalStyle.colors.font_primary}}
@@ -37,37 +66,51 @@ const SearchRecipe = () => {
 
       {/* Outpus Search */}
       <View style={{marginTop: 16}}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            // backgroundColor: 'red',
-            alignItems: 'center',
-          }}>
-          <Image
-            source={menu3}
-            style={{width: 64, height: 64, resizeMode: 'cover'}}
-          />
-          <View style={{marginStart: 14}}>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>Black Fish</Text>
+        <FlatList
+          data={data}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
             <View
               style={{
+                flex: 1,
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: 6,
-                // backgroundColor: 'yellow',
+                marginBottom: 10,
               }}>
-              <AwesomeIcon
-                name="star"
-                solid
-                color={GlobalStyle.colors.font_primary}
+              <Image
+                source={{uri: item.photo}}
+                style={{
+                  width: 64,
+                  height: 64,
+                  resizeMode: 'cover',
+                  backgroundColor: 'gray',
+                  borderRadius: 14,
+                }}
               />
-              <Text style={{marginStart: 4}}>4.3 | Seafood</Text>
+              <View style={{marginStart: 14}}>
+                <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                  {item.title}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 6,
+                    // backgroundColor: 'yellow',
+                  }}>
+                  <AwesomeIcon
+                    name="star"
+                    solid
+                    color={GlobalStyle.colors.font_primary}
+                  />
+                  <Text style={{marginStart: 4}}>4.3 | {item.category}</Text>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
+          )}
+        />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

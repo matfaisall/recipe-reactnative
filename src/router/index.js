@@ -8,8 +8,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-import {StyleSheet, Text, View} from 'react-native';
-import GlobalStyle from '../assets/styles/style';
 import Icon from 'react-native-vector-icons/Feather';
 
 import {
@@ -96,6 +94,11 @@ const Router = () => {
         <Stack.Screen
           name="SearchRecipe"
           component={SearchRecipe}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailPopularRecipe"
+          component={DetailPopularRecipe}
           options={{headerShown: false}}
         />
         <Stack.Screen
