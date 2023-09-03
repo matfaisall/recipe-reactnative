@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const baseURL = `https://alive-overshirt-bear.cyclic.app`;
 
+// ADDING MENU / RECIPE
 export const addRecipe =
   (dataRecipe, {navigation}) =>
   async dispatch => {
@@ -52,6 +53,7 @@ export const addRecipe =
     }
   };
 
+// GET MENU / RECIPE
 export const getMenu = () => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   const instance = axios.create({
@@ -82,6 +84,7 @@ export const getMenu = () => async dispatch => {
   }
 };
 
+// === SEARCH MENU / RECIPE
 export const searchMenu = search => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   const instance = axios.create({
@@ -116,6 +119,67 @@ export const searchMenu = search => async dispatch => {
   }
 };
 
-// export const getMyRecipe =
-//   (getMyDataRecipe, {navigation}) =>
-//   async dispatch => {};
+// GET MY MENU / RECIPE
+
+export const getMyMenu = () => async dispatch => {
+  const token = await AsyncStorage.getItem('token');
+  const instance = axios.create({
+    baseURL: baseURL,
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+
+  try {
+    dispatch({
+      type: 'GET_MYMENU_PENDING',
+    });
+
+    const result = await instance.get(
+      baseURL + `/recipe/filterdata?sortBy=title&sort=desc&limit=5&page=1`,
+    );
+
+    dispatch({
+      type: 'GET_MYMENU_SUCCESS',
+      payload: result.data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'GET_MYMENU_FAILED',
+      payload: error.response,
+    });
+  }
+};
+
+// DELETE MY MENU /RECIPE
+export const deleteMenu = itemId => async dispatch => {
+  const token = await AsyncStorage.getItem('token');
+  const instance = axios.create({
+    baseURL: baseURL,
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+
+  try {
+    dispatch({
+      type: 'DELETE_MYMENU_PENDING',
+    });
+
+    console.log('ini id delete', typeof itemId);
+
+    const result = await instance.delete(baseURL + `/recipe/${itemId}`);
+    dispatch(getMyMenu());
+    console.log('result dari delete menu', result);
+
+    dispatch({
+      type: 'DELETE_MYMENU_SUCCESS',
+      payload: result.data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'DELETE_MYMENU_FAILED',
+      payload: error.response,
+    });
+  }
+};

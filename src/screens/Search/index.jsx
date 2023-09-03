@@ -27,14 +27,6 @@ const SearchRecipe = () => {
   let data = menu.data;
 
   const [search, setSearch] = useState('');
-  // console.log('ini search', search);
-
-  // const recipe = useSelector(state => state.getRecipeReducer);
-
-  // useEffect(() => {
-  //   dispatch(searchRecipe(search));
-  //   search == '' && dispatch(getRecipe());
-  // }, [search]);
 
   console.log('ini data search', menu);
 
