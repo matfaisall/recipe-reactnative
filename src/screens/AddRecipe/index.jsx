@@ -54,7 +54,6 @@ const AddRecipe = ({navigation}) => {
         path: 'images',
       },
     };
-    123456;
 
     ImagePicker.launchImageLibrary(options, response => {
       if (response.didCancel) {

@@ -21,6 +21,7 @@ import {
   Profile,
   MyRecipe,
   DetailIngredients,
+  UpdateRecipe,
 } from '../screens';
 
 const MyTab = () => {
@@ -99,6 +100,11 @@ const Router = () => {
         <Stack.Screen
           name="DetailPopularRecipe"
           component={DetailPopularRecipe}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="UpdateRecipe"
+          component={UpdateRecipe}
           options={{headerShown: false}}
         />
         <Stack.Screen

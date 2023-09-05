@@ -64,7 +64,9 @@ const MyRecipe = ({navigation}) => {
                       <Text
                         style={{fontSize: 16, fontWeight: 'bold'}}
                         onPress={() =>
-                          navigation.navigate('DetailIngredients')
+                          navigation.navigate('DetailIngredients', {
+                            itemId: item.id,
+                          })
                         }>
                         {item.title}
                       </Text>
@@ -76,7 +78,10 @@ const MyRecipe = ({navigation}) => {
                       flexDirection: 'column',
                       justifyContent: 'space-around',
                     }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('UpdateRecipe', {itemId: item.id})
+                      }>
                       <Icon
                         name="edit"
                         color="#FFFFFF"

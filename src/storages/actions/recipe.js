@@ -31,6 +31,7 @@ export const addRecipe =
         'Content-Type': 'multipart/form-data',
       },
     });
+    console.log('ini data add action: ', dataRecipe);
     try {
       dispatch({type: 'ADD_RECIPE_PENDING'});
 
@@ -181,5 +182,79 @@ export const deleteMenu = itemId => async dispatch => {
       type: 'DELETE_MYMENU_FAILED',
       payload: error.response,
     });
+  }
+};
+
+// UPDATE MY MENU / RECIPE
+export const updateMenu =
+  (formData, itemId, {navigation}) =>
+  async dispatch => {
+    const token = await AsyncStorage.getItem('token');
+    const instance = axios.create({
+      baseURL: baseURL,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    console.log('ini data action update: ', itemId, formData);
+
+    try {
+      dispatch({
+        type: 'UPDATE_MENU_PENDING',
+      });
+
+      const result = await instance.put(
+        baseURL + `/recipe/${itemId}`,
+        formData,
+      );
+      console.log('ini result update', result);
+
+      dispatch({
+        type: 'UPDATE_MENU_SUCCESS',
+        payload: result.data.data.data,
+      });
+      // navigation...
+      navigation.navigate('My Recipe');
+    } catch (error) {
+      dispatch({
+        type: 'UPDATE_MENU_FAILED',
+        payload: error.response.data,
+      });
+      console.log(error);
+    }
+  };
+
+// MENU / RECIPE BY ID
+export const menuById = itemId => async dispatch => {
+  const token = await AsyncStorage.getItem('token');
+  const instance = axios.create({
+    baseURL: baseURL,
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+
+  try {
+    dispatch({
+      type: 'GET_MENUBYID_PENDING',
+    });
+
+    // console.log('ini item id action', itemId);
+
+    const result = await instance.get(`${baseURL}/recipe/${itemId}`);
+    // console.log('ini menu by id ', result);
+
+    dispatch({
+      type: 'GET_MENUBYID_SUCCESS',
+      payload: result.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'GET_MENUBYID_FAILED',
+      payload: error.response,
+    });
+    console.log(error);
   }
 };

@@ -15,6 +15,8 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import fakeAvatar from '../../assets/images/fakeAvatar.jpg';
 
+import {login} from '../../storages/actions/auth';
+
 const Profile = ({navigation}) => {
   return (
     <View style={{flex: 1}}>

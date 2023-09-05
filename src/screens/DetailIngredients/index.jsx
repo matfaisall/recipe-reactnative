@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -15,7 +15,22 @@ import Icon from 'react-native-vector-icons/Feather';
 import fakePhoto from '../../assets/images/AuthPhoto.png';
 import GlobalStyle from '../../assets/styles/style';
 
-const DetailIngredients = () => {
+import {menuById} from '../../storages/actions/recipe';
+import {useDispatch, useSelector} from 'react-redux';
+
+const DetailIngredients = ({route}) => {
+  const dispatch = useDispatch();
+  const {itemId} = route.params;
+  // console.log('menu by id detailingerefed', itemId);
+  const menuDetail = useSelector(state => state.menuByIdReducer);
+
+  useEffect(() => {
+    dispatch(menuById(itemId));
+  }, []);
+
+  const ingredientsSplit = menuDetail.data.data.ingredients.split(',');
+
+  console.log('ini menu detail', menuDetail);
   return (
     <ScrollView style={{flex: 1}}>
       <StatusBar backgroundColor="transparent" translucent={true} />
@@ -30,9 +45,11 @@ const DetailIngredients = () => {
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View>
                 <Text style={{color: 'white', fontSize: 24, maxWidth: 280}}>
-                  Nasi Goreng Bali
+                  {menuDetail.data.data.title}
                 </Text>
-                <Text style={{color: 'white'}}>Muhammad Faisal</Text>
+                <Text style={{color: 'white'}}>
+                  Author: {menuDetail.data.data.users_id}
+                </Text>
               </View>
 
               <View
@@ -70,7 +87,11 @@ const DetailIngredients = () => {
                 Ingredients
               </Text>
               <View>
-                <Text>nasi, sambal, telur, krupuk</Text>
+                {ingredientsSplit.map((ingredient, index) => (
+                  <Text key={index}>
+                    <Icon name="stop-circle" size={12} /> {ingredient.trim()}
+                  </Text>
+                ))}
               </View>
             </View>
           </View>
