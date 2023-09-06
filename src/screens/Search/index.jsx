@@ -70,7 +70,7 @@ const SearchRecipe = () => {
                 marginBottom: 10,
               }}>
               <Image
-                source={{uri: item.photo}}
+                source={{uri: item.image}}
                 style={{
                   width: 64,
                   height: 64,

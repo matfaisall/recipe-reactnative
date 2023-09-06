@@ -43,7 +43,7 @@ export const addRecipe =
         payload: result.data.data,
       });
 
-      navigation.navigate('My Recipe');
+      navigation.navigate('MyRecipe');
     } catch (error) {
       dispatch({
         type: 'ADD_RECIPE_FAILED',
@@ -186,45 +186,40 @@ export const deleteMenu = itemId => async dispatch => {
 };
 
 // UPDATE MY MENU / RECIPE
-export const updateMenu =
-  (formData, itemId, {navigation}) =>
-  async dispatch => {
-    const token = await AsyncStorage.getItem('token');
-    const instance = axios.create({
-      baseURL: baseURL,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
-      },
+export const updateMenu = (formData, itemId) => async dispatch => {
+  const token = await AsyncStorage.getItem('token');
+  const instance = axios.create({
+    baseURL: baseURL,
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+  console.log('ini data action update: ', typeof itemId, formData);
+
+  try {
+    dispatch({
+      type: 'UPDATE_MENU_PENDING',
     });
 
-    console.log('ini data action update: ', itemId, formData);
+    // console.log('ini token yang katamu uncorrect', token);
 
-    try {
-      dispatch({
-        type: 'UPDATE_MENU_PENDING',
-      });
+    const result = await instance.put(`${baseURL}/recipe/${itemId}`, formData);
+    // const result = await instance.put(`${baseURL}/recipe/${itemId}`, formData);
+    // console.log('ini result action update', result);
+    // console.log('update menu success');
 
-      const result = await instance.put(
-        baseURL + `/recipe/${itemId}`,
-        formData,
-      );
-      console.log('ini result update', result);
-
-      dispatch({
-        type: 'UPDATE_MENU_SUCCESS',
-        payload: result.data.data.data,
-      });
-      // navigation...
-      navigation.navigate('My Recipe');
-    } catch (error) {
-      dispatch({
-        type: 'UPDATE_MENU_FAILED',
-        payload: error.response.data,
-      });
-      console.log(error);
-    }
-  };
+    dispatch({
+      type: 'UPDATE_MENU_SUCCESS',
+      payload: result.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'UPDATE_MENU_FAILED',
+      payload: error.response.data,
+    });
+    console.log(error);
+  }
+};
 
 // MENU / RECIPE BY ID
 export const menuById = itemId => async dispatch => {

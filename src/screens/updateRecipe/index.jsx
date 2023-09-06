@@ -20,39 +20,47 @@ import {useDispatch, useSelector} from 'react-redux';
 
 const UpdateRecipe = ({route, navigation}) => {
   const dispatch = useDispatch();
-
   const {itemId} = route.params;
 
-  const data = useSelector(state => state.menuByIdReducer);
-  const getRecipe = data.data.data;
+  const recipeId = useSelector(state => state.menuByIdReducer);
+  // const getRecipe = data.data.data;
 
-  // const [title, setTitle] = useState('');
-  // const [ingredients, setIngredients] = useState('');
+  const {
+    data: {data},
+  } = recipeId;
+
+  // console.log(recipeId);
+  // console.log('ini test', data);
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(getRecipe.category_id);
+  const [value, setValue] = useState(data.category_id);
   const [items, setItems] = useState([
     {label: 'Main course', value: '1'},
     {label: 'Appetizer', value: '2'},
     {label: 'Dessert', value: '3'},
   ]);
 
-  console.log('ini value', value);
+  const [recipePicture, setRecipePicture] = useState(data.image);
+  // console.log(recipePicture);
 
-  // console.log('ini menuById', menuById());
-  // console.log('ini itemId: ', itemId);
-
-  const [recipePicture, setRecipePicture] = useState(getRecipe.image);
+  useEffect(() => {
+    if (data) {
+      setInputData({
+        title: data?.title,
+        ingredients: data?.ingredients,
+        category_id: value,
+        image_url: data?.image,
+      });
+      setValue(data?.category_id);
+    }
+  }, [data]);
 
   const [inputData, setInputData] = useState({
     title: '',
     ingredients: '',
-    category_id: value,
+    category_id: '',
     image_url: '',
   });
-
-  // console.log('inputdata', inputData);
-  // console.log('ini data', getRecipe);
 
   useEffect(() => {
     dispatch(menuById(itemId));
@@ -78,22 +86,12 @@ const UpdateRecipe = ({route, navigation}) => {
     });
   };
 
-  useEffect(() => {
-    getRecipe &&
-      setInputData({
-        ...inputData,
-        title: getRecipe.title,
-        ingredients: getRecipe.ingredients,
-        image_url: getRecipe.image,
-        category_id: getRecipe.category_id,
-      });
-  }, [getRecipe]);
-
   const handlerUpdate = () => {
     let formData = new FormData();
     formData.append('title', inputData.title);
     formData.append('ingredients', inputData.ingredients);
-    formData.append('category_id', inputData.category_id);
+    formData.append('category_id', `${inputData.category_id}`);
+
     if (recipePicture) {
       formData.append('image', {
         uri: recipePicture?.uri,
@@ -102,23 +100,12 @@ const UpdateRecipe = ({route, navigation}) => {
       });
     }
 
-    dispatch(updateMenu(itemId, formData, {navigation}));
+    dispatch(updateMenu(itemId, formData));
   };
 
   const onChangeInput = (name, value) => {
     setInputData({...inputData, [name]: value});
   };
-
-  useEffect(() => {
-    if (getRecipe) {
-      setInputData({
-        title: getRecipe?.title,
-        ingredients: getRecipe?.ingredients,
-        category_id: getRecipe?.category_id,
-        image_url: getRecipe?.image,
-      });
-    }
-  }, [getRecipe]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -14,10 +14,13 @@ import GlobalStyle from '../../assets/styles/style';
 import Icon from 'react-native-vector-icons/Feather';
 
 import fakeAvatar from '../../assets/images/fakeAvatar.jpg';
-
-import {login} from '../../storages/actions/auth';
+import {useSelector} from 'react-redux';
 
 const Profile = ({navigation}) => {
+  // const userProfile = useSelector(state => state.loginReducer);
+
+  // const [photoProfile, setPhotoProfile] = useState(null);
+
   return (
     <View style={{flex: 1}}>
       <StatusBar backgroundColor="transparent" translucent={true} />
@@ -28,7 +31,8 @@ const Profile = ({navigation}) => {
               <Image source={fakeAvatar} style={styles.imageStyle} />
             </View>
             <Text style={{fontSize: 20, marginTop: 16, fontWeight: 'medium'}}>
-              Muhammad Faisal
+              {/* {userProfile.data.name} */}
+              Faisal
             </Text>
           </View>
         </View>
@@ -52,7 +56,7 @@ const Profile = ({navigation}) => {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('My Recipe')}>
+          <TouchableOpacity onPress={() => navigation.navigate('MyRecipe')}>
             <View style={styles.list_wrapper}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Icon

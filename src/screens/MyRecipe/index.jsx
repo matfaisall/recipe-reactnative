@@ -58,7 +58,22 @@ const MyRecipe = ({navigation}) => {
                 <View style={[styles.myRecipe__wrapper]}>
                   <View style={{flexDirection: 'row'}}>
                     <View>
-                      <Image source={item.image} style={styles.styleImage} />
+                      {/* <Text>{item.image}</Text> */}
+                      {/* <Image
+                        source={require('' + item.image + '')}
+                        // style={styles.styleImage}
+                      /> */}
+                      {item.image ? (
+                        <Image
+                          source={{uri: item.image}}
+                          style={styles.styleImage}
+                          onPress={() =>
+                            navigation.navigate('DetailIngredients', {
+                              itemId: item.id,
+                            })
+                          }
+                        />
+                      ) : null}
                     </View>
                     <View style={{marginStart: 8}}>
                       <Text

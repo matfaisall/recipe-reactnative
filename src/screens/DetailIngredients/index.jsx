@@ -37,7 +37,7 @@ const DetailIngredients = ({route}) => {
       <View>
         <View style={{width: '100%', height: 420}}>
           <Image
-            source={fakePhoto}
+            source={{uri: menuDetail.data.data.image}}
             style={{width: '100%', height: '100%', resizeMode: 'cover'}}
           />
           <View style={styles.cardOverlay}>

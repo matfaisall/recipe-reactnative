@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -23,6 +23,9 @@ import {
   DetailIngredients,
   UpdateRecipe,
 } from '../screens';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
 
 const MyTab = () => {
   return (
@@ -68,30 +71,38 @@ const MyTab = () => {
 };
 
 const Router = () => {
+  // const isLogin = useSelector(state => state.loginReducer);
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Register"
-          component={Register}
-          options={{headerShown: false}}
-        />
+    <NavigationContainer initialRouteName={Register}>
+      <Stack.Navigator>
+        {/* {isLogin.data ? (
+        ) : (
+          )} */}
+
         <Stack.Screen
           name="Login"
           component={Login}
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="MyRecipe"
+          component={MyRecipe}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
           name="MyTab"
           component={MyTab}
           options={{headerShown: false}}
         />
 
-        <Stack.Screen
-          name="My Recipe"
-          component={MyRecipe}
-          options={{headerShown: false}}
-        />
         <Stack.Screen
           name="SearchRecipe"
           component={SearchRecipe}
