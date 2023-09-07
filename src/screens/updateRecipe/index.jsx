@@ -90,7 +90,7 @@ const UpdateRecipe = ({route, navigation}) => {
     let formData = new FormData();
     formData.append('title', inputData.title);
     formData.append('ingredients', inputData.ingredients);
-    formData.append('category_id', `${inputData.category_id}`);
+    formData.append('category_id', inputData.category_id);
 
     if (recipePicture) {
       formData.append('image', {
@@ -100,7 +100,7 @@ const UpdateRecipe = ({route, navigation}) => {
       });
     }
 
-    dispatch(updateMenu(itemId, formData));
+    dispatch(updateMenu(itemId, formData, {navigation}));
   };
 
   const onChangeInput = (name, value) => {
