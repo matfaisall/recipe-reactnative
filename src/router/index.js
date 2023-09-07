@@ -26,6 +26,10 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useSelector} from 'react-redux';
+import {
+  NotificationServices,
+  requestUserPermission,
+} from '../utils/PushNotification';
 
 const MyTab = () => {
   return (
@@ -71,8 +75,13 @@ const MyTab = () => {
 };
 
 const Router = () => {
-  // const isLogin = useSelector(state => state.loginReducer);
+  // for fcm token
+  useEffect(() => {
+    requestUserPermission();
+    NotificationServices();
+  }, []);
 
+  // const isLogin = useSelector(state => state.loginReducer);
   return (
     <NavigationContainer initialRouteName={Register}>
       <Stack.Navigator>
