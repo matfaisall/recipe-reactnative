@@ -49,6 +49,7 @@ export const addRecipe =
         type: 'ADD_RECIPE_FAILED',
         payload: error.response,
       });
+
       navigation.navigate('Add Recipe');
       console.log(error);
     }
@@ -212,16 +213,17 @@ export const updateMenu =
         formData,
       );
 
-      navigation.navigate('MyRecipe');
       dispatch({
         type: 'UPDATE_MENU_SUCCESS',
         payload: result.data,
       });
+      navigation.navigate('MyRecipe');
     } catch (error) {
       dispatch({
         type: 'UPDATE_MENU_FAILED',
         payload: error.response.data,
       });
+
       console.log(error);
     }
   };

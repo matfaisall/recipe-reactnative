@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 
 import GlobalStyle from '../../assets/styles/style';
@@ -44,7 +45,6 @@ const AddRecipe = ({navigation}) => {
     });
 
     dispatch(addRecipe(dataRecipe, {navigation}));
-    // navigation.navigate('MyTab');
   };
 
   const galleryLaunch = () => {

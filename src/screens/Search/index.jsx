@@ -7,13 +7,13 @@ import {
   TextInput,
   Image,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 
 import GlobalStyle from '../../assets/styles/style';
-import menu3 from '../../assets/images/seafood.png';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {getMenu, searchMenu} from '../../storages/actions/recipe';
@@ -26,7 +26,17 @@ const SearchRecipe = () => {
   // const {data, errorMessage, isLoading, isError} = menu.menu;
   let data = menu.data;
 
+  console.log('ini menu', menu);
+  console.log('ini data', data);
+
   const [search, setSearch] = useState('');
+  // const [page, setPage] = useState(1);
+
+  // const goToPage = pageNumber => {
+  //   if (pageNumber >= 1 && pageNumber <= menu?.pages.totalPage) {
+  //     setPage(pageNumber);
+  //   }
+  // };
 
   console.log('ini data search', menu);
 
@@ -101,6 +111,47 @@ const SearchRecipe = () => {
             </View>
           )}
         />
+        {/* <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 20,
+          }}>
+          <TouchableOpacity onPress={() => goToPage(page - 1)}>
+            <Text>Prev</Text>
+          </TouchableOpacity>
+          <Text style={{fontSize: 20}}>
+            Halaman {page} dari {data?.pages.totalPage}
+          </Text>
+          <TouchableOpacity onPress={() => goToPage(page + 1)}>
+            <Text>Next</Text>
+          </TouchableOpacity>
+        </View> */}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <TouchableOpacity>
+            <Icon
+              name="chevrons-left"
+              size={24}
+              color={GlobalStyle.colors.font_secondary}
+            />
+            {/* <Text>Prev</Text> */}
+          </TouchableOpacity>
+          <Text style={{fontSize: 14}}>Halaman 1 dari 1</Text>
+          <TouchableOpacity>
+            <Icon
+              name="chevrons-right"
+              size={24}
+              color={GlobalStyle.colors.font_secondary}
+            />
+            {/* <Text>Next</Text> */}
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

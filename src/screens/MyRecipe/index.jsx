@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -19,8 +19,10 @@ import {getMyMenu} from '../../storages/actions/recipe';
 import {deleteMenu} from '../../storages/actions/recipe';
 
 import {useDispatch, useSelector} from 'react-redux';
+import {RefreshControl} from 'react-native';
 
 const MyRecipe = ({navigation}) => {
+  const [refreshing, setRefreshing] = useState(false);
   const myMenu = useSelector(state => state.myMenu);
   // const deleteMyMenu = useSelector(state => state.deleteMyMenuReducer);
   let data = myMenu.data;
@@ -39,6 +41,14 @@ const MyRecipe = ({navigation}) => {
     dispatch(getMyMenu());
   }, []);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    getMyMenu();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  };
+
   return (
     <View style={[{paddingTop: 40}]}>
       <StatusBar backgroundColor="#F5F5F5" translucent={true} />
@@ -50,10 +60,14 @@ const MyRecipe = ({navigation}) => {
 
       <View>
         <FlatList
+          vertical
           keyExtractor={item => item.id}
           data={data}
           renderItem={({item}) => (
-            <ScrollView>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }>
               <View style={{paddingHorizontal: 16}}>
                 <View style={[styles.myRecipe__wrapper]}>
                   <View style={{flexDirection: 'row'}}>
