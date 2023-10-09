@@ -2,18 +2,17 @@ import axios from 'axios';
 import config from '../../config';
 import {Alert, TouchableNativeFeedbackComponent} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const baseURL = `https://alive-overshirt-bear.cyclic.app`;
 
 export const login =
   (form, {navigation}) =>
   async dispatch => {
-    console.log(form);
     try {
       dispatch({
         type: 'AUTH_LOGIN_PENDING',
       });
-      console.log('1. auth login pending');
       const result = await axios.post(baseURL + `/auth/login`, form);
       // console.log('ini token', result.data.data.token);
 
@@ -24,11 +23,21 @@ export const login =
         type: 'AUTH_LOGIN_SUCCESS',
         payload: result.data,
       });
+
+      Toast.show({
+        type: 'success',
+        text1: result.data.message,
+      });
+
       navigation.navigate('MyTab');
     } catch (error) {
       dispatch({
         type: 'AUTH_LOGIN_FAILED',
         payload: error.response.data.message,
+      });
+      Toast.show({
+        type: 'info',
+        text1: error.response.data.message,
       });
       navigation.navigate('Login');
       console.log(error);
@@ -44,12 +53,19 @@ export const register =
       console.log('result register', result);
 
       dispatch({type: 'AUTH_REGISTER_SUCCESS', payload: result.data});
-
+      Toast.show({
+        type: 'success',
+        text1: result.data.message,
+      });
       navigation.navigate('Login');
     } catch (error) {
       dispatch({
         type: 'AUTH_REGISTER_FAILED',
         payload: error.response.data.message,
+      });
+      Toast.show({
+        type: 'info',
+        text1: error.response.data.message,
       });
       console.log(error);
     }

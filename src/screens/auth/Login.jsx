@@ -27,11 +27,10 @@ const Login = ({navigation}) => {
     password: '',
   });
 
-  console.log(form);
+  // console.log(form);
 
   const handleLogin = () => {
     dispatch(login(form, {navigation}));
-    // navigation.navigate('MyTab');
   };
 
   return (
