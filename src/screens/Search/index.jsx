@@ -19,7 +19,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {searchMenu} from '../../storages/actions/recipe';
 import {FlatList} from 'react-native-gesture-handler';
 
-const SearchRecipe = () => {
+const SearchRecipe = ({navigation}) => {
   const dispatch = useDispatch();
 
   const {data, isLoading} = useSelector(state => state.searchMenuReducer);
@@ -81,15 +81,19 @@ const SearchRecipe = () => {
                 }}
               />
               <View style={{marginStart: 14}}>
-                <Text style={{fontSize: 16, fontWeight: 'bold'}}>
-                  {item.title}
-                </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.push('DetailIngredients', {itemId: item.id})
+                  }>
+                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                    {item.title}
+                  </Text>
+                </TouchableOpacity>
                 <View
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
                     marginTop: 6,
-                    // backgroundColor: 'yellow',
                   }}>
                   <AwesomeIcon
                     name="star"

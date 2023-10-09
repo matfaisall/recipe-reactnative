@@ -21,23 +21,24 @@ import {useDispatch, useSelector} from 'react-redux';
 const DetailIngredients = ({route}) => {
   const dispatch = useDispatch();
   const {itemId} = route.params;
-  // console.log('menu by id detailingerefed', itemId);
-  const menuDetail = useSelector(state => state.menuByIdReducer);
+  console.log('menu by id detailingerefed', itemId);
+  const {data, isLoading} = useSelector(state => state.menuByIdReducer);
+  console.log('ini data id', data);
 
   useEffect(() => {
     dispatch(menuById(itemId));
   }, []);
 
-  const ingredientsSplit = menuDetail.data.data.ingredients.split(',');
+  // const ingredientsSplit = menuDetail.data.data.ingredients.split(',');
 
-  console.log('ini menu detail', menuDetail);
+  // console.log('ini menu detail', menuDetail);
   return (
     <ScrollView style={{flex: 1}}>
       <StatusBar backgroundColor="transparent" translucent={true} />
       <View>
         <View style={{width: '100%', height: 420}}>
           <Image
-            source={{uri: menuDetail.data.data.image}}
+            source={{uri: data.data.image}}
             style={{width: '100%', height: '100%', resizeMode: 'cover'}}
           />
           <View style={styles.cardOverlay}>
@@ -45,10 +46,11 @@ const DetailIngredients = ({route}) => {
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View>
                 <Text style={{color: 'white', fontSize: 24, maxWidth: 280}}>
-                  {menuDetail.data.data.title}
+                  {data.data.title}
                 </Text>
+                <Text style={{color: 'white'}}>Chaf: {data.data.author}</Text>
                 <Text style={{color: 'white'}}>
-                  Author: {menuDetail.data.data.users_id}
+                  Total Like: {data.data.like_count}
                 </Text>
               </View>
 
@@ -87,7 +89,7 @@ const DetailIngredients = ({route}) => {
                 Ingredients
               </Text>
               <View>
-                {ingredientsSplit.map((ingredient, index) => (
+                {data.data.ingredients.split(',').map((ingredient, index) => (
                   <Text key={index}>
                     <Icon name="stop-circle" size={12} /> {ingredient.trim()}
                   </Text>

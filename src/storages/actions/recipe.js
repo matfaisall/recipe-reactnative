@@ -44,7 +44,7 @@ export const addRecipe =
     }
   };
 
-// GET MENU / RECIPE
+// GET MENU / RECIPE , belum guna
 export const getMenu = () => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   const instance = axios.create({
