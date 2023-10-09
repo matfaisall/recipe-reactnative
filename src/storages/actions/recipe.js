@@ -1,20 +1,9 @@
 import axios from 'axios';
-import config from '../../config';
-import {Alert, TouchableNativeFeedbackComponent} from 'react-native';
-import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// import {instance} from '../../utils/apiServices';
-
-// === get token
-// let token = AsyncStorage.getItem('token');
-
-// const headers = {
-//   Authorization: `Bearer ${token}`,
-// };
-// === end get token
-
 const baseURL = `https://alive-overshirt-bear.cyclic.app`;
+
+import {BASE_URL} from '@env';
 
 // ADDING MENU / RECIPE
 export const addRecipe =
@@ -87,35 +76,35 @@ export const getMenu = () => async dispatch => {
 };
 
 // === SEARCH MENU / RECIPE
-export const searchMenu = search => async dispatch => {
+export const searchMenu = (search, page) => async dispatch => {
+  console.log('this is base url from env', BASE_URL);
   const token = await AsyncStorage.getItem('token');
   const instance = axios.create({
-    baseURL: baseURL,
     headers: {
-      Authorization: `Bearer ${token} `,
+      Authorization: `Bearer ${token}`,
     },
   });
 
   try {
     dispatch({
-      type: 'GET_MENU_PENDING',
+      type: 'SEARCH_MENU_PENDING',
     });
 
     const result = await instance.get(
-      baseURL +
-        `/recipe/searchdata?search=${search}&searchBy=title&limit=5&sortBy=DESC`,
+      BASE_URL +
+        `/recipe/searchdata?search=${search}&searchBy=title&limit=5&page=${page}&sortBy=DESC`,
     );
 
     console.log('ini action search', result);
 
     dispatch({
-      type: 'GET_MENU_SUCCESS',
-      payload: result.data.data,
+      type: 'SEARCH_MENU_SUCCESS',
+      payload: result.data, // pass data if successs
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     dispatch({
-      type: 'GET_MENU_FAILED',
+      type: 'SEARCH_MENU_FAILED',
       payload: error.response,
     });
   }

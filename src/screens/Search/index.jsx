@@ -16,34 +16,25 @@ import AwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import GlobalStyle from '../../assets/styles/style';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {getMenu, searchMenu} from '../../storages/actions/recipe';
+import {searchMenu} from '../../storages/actions/recipe';
 import {FlatList} from 'react-native-gesture-handler';
 
 const SearchRecipe = () => {
   const dispatch = useDispatch();
 
-  const menu = useSelector(state => state.menu);
-  // const {data, errorMessage, isLoading, isError} = menu.menu;
-  let data = menu.data;
+  const {data, isLoading} = useSelector(state => state.searchMenuReducer);
 
-  console.log('ini menu', menu);
-  console.log('ini data', data);
+  console.log('ini data search', data?.data);
+  console.log('ini isloading', isLoading);
 
   const [search, setSearch] = useState('');
-  // const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
 
-  // const goToPage = pageNumber => {
-  //   if (pageNumber >= 1 && pageNumber <= menu?.pages.totalPage) {
-  //     setPage(pageNumber);
-  //   }
-  // };
-
-  console.log('ini data search', menu);
+  console.log('ini pagination: !!!', data?.pagination);
 
   useEffect(() => {
-    dispatch(searchMenu(search));
-    search == '' && dispatch(getMenu());
-  }, [search]);
+    dispatch(searchMenu(search, page));
+  }, [search, page]);
 
   return (
     <View style={[GlobalStyle.container, {paddingTop: 40}]}>
@@ -66,10 +57,10 @@ const SearchRecipe = () => {
         />
       </View>
 
-      {/* Outpus Search */}
+      {/* Output Search */}
       <View style={{marginTop: 16}}>
         <FlatList
-          data={data}
+          data={data?.data}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <View
@@ -111,22 +102,7 @@ const SearchRecipe = () => {
             </View>
           )}
         />
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 20,
-          }}>
-          <TouchableOpacity onPress={() => goToPage(page - 1)}>
-            <Text>Prev</Text>
-          </TouchableOpacity>
-          <Text style={{fontSize: 20}}>
-            Halaman {page} dari {data?.pages.totalPage}
-          </Text>
-          <TouchableOpacity onPress={() => goToPage(page + 1)}>
-            <Text>Next</Text>
-          </TouchableOpacity>
-        </View> */}
+        {/* Pagination */}
         <View
           style={{
             flexDirection: 'row',
@@ -134,22 +110,27 @@ const SearchRecipe = () => {
             alignItems: 'center',
             marginTop: 20,
           }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => setPage(page - 1)}>
             <Icon
               name="chevrons-left"
               size={24}
               color={GlobalStyle.colors.font_secondary}
             />
-            {/* <Text>Prev</Text> */}
           </TouchableOpacity>
-          <Text style={{fontSize: 14}}>Halaman 1 dari 1</Text>
-          <TouchableOpacity>
+          {/* {page >= 1 && (
+          )} */}
+
+          <Text style={{fontSize: 14}}>
+            Halaman {page} dari {data?.pagination.totalPage}
+          </Text>
+          {/* {page < data?.pagination.totalPage && (
+          )} */}
+          <TouchableOpacity onPress={() => setPage(page + 1)}>
             <Icon
               name="chevrons-right"
               size={24}
               color={GlobalStyle.colors.font_secondary}
             />
-            {/* <Text>Next</Text> */}
           </TouchableOpacity>
         </View>
       </View>

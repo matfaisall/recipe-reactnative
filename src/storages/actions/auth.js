@@ -3,8 +3,7 @@ import config from '../../config';
 import {Alert, TouchableNativeFeedbackComponent} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
-
-const baseURL = `https://alive-overshirt-bear.cyclic.app`;
+import {BASE_URL} from '@env';
 
 export const login =
   (form, {navigation}) =>
@@ -13,7 +12,7 @@ export const login =
       dispatch({
         type: 'AUTH_LOGIN_PENDING',
       });
-      const result = await axios.post(baseURL + `/auth/login`, form);
+      const result = await axios.post(BASE_URL + `/auth/login`, form);
       // console.log('ini token', result.data.data.token);
 
       // pasangin
@@ -49,7 +48,7 @@ export const register =
   async dispatch => {
     try {
       dispatch({type: 'AUTH_REGISTER_PENDING'});
-      const result = await axios.post(baseURL + `/auth/register`, form);
+      const result = await axios.post(BASE_URL + `/auth/register`, form);
       console.log('result register', result);
 
       dispatch({type: 'AUTH_REGISTER_SUCCESS', payload: result.data});
