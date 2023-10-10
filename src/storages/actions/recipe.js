@@ -148,8 +148,6 @@ export const deleteMenu = id => async dispatch => {
   const instance = axios.create({
     headers: {
       Authorization: `Bearer ${token}`,
-      // baseURL: baseURL,
-      'Content-Type': 'multipart/form-data',
     },
   });
 
