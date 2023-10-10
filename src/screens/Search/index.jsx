@@ -24,13 +24,13 @@ const SearchRecipe = ({navigation}) => {
 
   const {data, isLoading} = useSelector(state => state.searchMenuReducer);
 
-  console.log('ini data search', data?.data);
-  console.log('ini isloading', isLoading);
+  // console.log('ini data search', data?.data);
+  // console.log('ini isloading', isLoading);
 
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
 
-  console.log('ini pagination: !!!', data?.pagination);
+  // console.log('ini pagination: !!!', data?.pagination);
 
   useEffect(() => {
     dispatch(searchMenu(search, page));

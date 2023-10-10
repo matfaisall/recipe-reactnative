@@ -12,42 +12,28 @@ import {
 
 import GlobalStyle from '../../assets/styles/style';
 import Icon from 'react-native-vector-icons/Feather';
-
-// import fakeImage from '../../assets/images/AuthPhoto.png';
-
-import {getMyMenu} from '../../storages/actions/recipe';
-import {deleteMenu} from '../../storages/actions/recipe';
+import {getMyMenu, deleteMenu} from '../../storages/actions/recipe';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {RefreshControl} from 'react-native';
 
 const MyRecipe = ({navigation}) => {
-  const [refreshing, setRefreshing] = useState(false);
-  const myMenu = useSelector(state => state.myMenu);
-  // const deleteMyMenu = useSelector(state => state.deleteMyMenuReducer);
-  let data = myMenu.data;
-  // console.log(myMenu);
   const dispatch = useDispatch();
+
+  const {data, isLoading} = useSelector(state => state.myMenu);
+
+  console.log('ini my data', data, isLoading);
 
   const handlerDelete = itemId => {
     dispatch(deleteMenu(itemId));
   };
 
-  useEffect(() => {
-    getMyMenu();
-  }, []);
+  // useEffect(() => {
+  //   getMyMenu();
+  // }, []);
 
   useEffect(() => {
     dispatch(getMyMenu());
   }, []);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    getMyMenu();
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  };
 
   return (
     <View style={[{paddingTop: 40}]}>
@@ -62,43 +48,31 @@ const MyRecipe = ({navigation}) => {
         <FlatList
           vertical
           keyExtractor={item => item.id}
-          data={data}
+          data={data?.data}
           renderItem={({item}) => (
-            <ScrollView
-              refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-              }>
+            <ScrollView>
               <View style={{paddingHorizontal: 16}}>
                 <View style={[styles.myRecipe__wrapper]}>
                   <View style={{flexDirection: 'row'}}>
                     <View>
-                      {/* <Text>{item.image}</Text> */}
-                      {/* <Image
-                        source={require('' + item.image + '')}
-                        // style={styles.styleImage}
-                      /> */}
                       {item.image ? (
                         <Image
                           source={{uri: item.image}}
                           style={styles.styleImage}
-                          onPress={() =>
-                            navigation.navigate('DetailIngredients', {
-                              itemId: item.id,
-                            })
-                          }
                         />
                       ) : null}
                     </View>
                     <View style={{marginStart: 8}}>
-                      <Text
-                        style={{fontSize: 16, fontWeight: 'bold'}}
+                      <TouchableOpacity
                         onPress={() =>
-                          navigation.navigate('DetailIngredients', {
+                          navigation.push('DetailIngredients', {
                             itemId: item.id,
                           })
                         }>
-                        {item.title}
-                      </Text>
+                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                          {item.title}
+                        </Text>
+                      </TouchableOpacity>
                       <Text>{item.category}</Text>
                     </View>
                   </View>
@@ -133,58 +107,6 @@ const MyRecipe = ({navigation}) => {
           )}
         />
       </View>
-
-      {/* <View
-        style={{
-          paddingHorizontal: 16,
-          backgroundColor: 'yellow',
-        }}>
-        <FlatList
-          nestedScrollEnabled
-          data={myMenu}
-          renderItem={({item}) => (
-            <View>
-              <View style={styles.myRecipe__wrapper}>
-                <View style={{flexDirection: 'row'}}>
-                  <View>
-                    <Image source={fakeImage} style={styles.styleImage} />
-                  </View>
-                  <View style={{marginStart: 8}}>
-                    <Text
-                      style={{fontSize: 16, fontWeight: 'bold'}}
-                      onPress={() => navigation.navigate('DetailIngredients')}>
-                      {item.title}
-                    </Text>
-                    <Text>{item.category}</Text>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                  }}>
-                  <TouchableOpacity>
-                    <Icon
-                      name="edit"
-                      color="#FFFFFF"
-                      size={18}
-                      style={[styles.iconStyle, {backgroundColor: 'blue'}]}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Icon
-                      name="trash"
-                      color="#FFFFFF"
-                      size={18}
-                      style={[styles.iconStyle, {backgroundColor: 'red'}]}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          )}
-        />
-      </View> */}
     </View>
   );
 };

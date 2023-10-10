@@ -28,7 +28,7 @@ export const login =
         text1: result.data.message,
       });
 
-      navigation.navigate('MyTab');
+      navigation.push('MyTab');
     } catch (error) {
       dispatch({
         type: 'AUTH_LOGIN_FAILED',

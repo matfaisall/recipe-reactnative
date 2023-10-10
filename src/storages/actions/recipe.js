@@ -95,7 +95,7 @@ export const searchMenu = (search, page) => async dispatch => {
         `/recipe/searchdata?search=${search}&searchBy=title&limit=5&page=${page}&sortBy=DESC`,
     );
 
-    console.log('ini action search', result);
+    // console.log('ini action search', result);
 
     dispatch({
       type: 'SEARCH_MENU_SUCCESS',
@@ -127,12 +127,12 @@ export const getMyMenu = () => async dispatch => {
     });
 
     const result = await instance.get(
-      baseURL + `/recipe/filterdata?sortBy=title&sort=desc&limit=5&page=1`,
+      baseURL + `/recipe/filterdata?sortBy=title&sort=desc&limit=100`,
     );
 
     dispatch({
       type: 'GET_MYMENU_SUCCESS',
-      payload: result.data.data,
+      payload: result.data,
     });
   } catch (error) {
     dispatch({
@@ -143,12 +143,13 @@ export const getMyMenu = () => async dispatch => {
 };
 
 // DELETE MY MENU /RECIPE
-export const deleteMenu = itemId => async dispatch => {
+export const deleteMenu = id => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   const instance = axios.create({
-    baseURL: baseURL,
     headers: {
-      Authorization: `Bearer ${token} `,
+      Authorization: `Bearer ${token}`,
+      // baseURL: baseURL,
+      'Content-Type': 'multipart/form-data',
     },
   });
 
@@ -157,11 +158,12 @@ export const deleteMenu = itemId => async dispatch => {
       type: 'DELETE_MYMENU_PENDING',
     });
 
-    console.log('ini id delete', typeof itemId);
+    console.log('ini id delete', id);
+    console.log('ini token delete', token);
 
-    const result = await instance.delete(baseURL + `/recipe/${itemId}`);
-    dispatch(getMyMenu());
+    const result = await instance.delete(`${BASE_URL}/recipe/${id}`);
     console.log('result dari delete menu', result);
+    dispatch(getMyMenu());
 
     dispatch({
       type: 'DELETE_MYMENU_SUCCESS',
@@ -232,11 +234,7 @@ export const menuById = itemId => async dispatch => {
       type: 'GET_MENUBYID_PENDING',
     });
 
-    // console.log('ini item id action', itemId);
-
     const result = await instance.get(`${baseURL}/recipe/${itemId}`);
-    // console.log('ini menu by id ', result);
-
     dispatch({
       type: 'GET_MENUBYID_SUCCESS',
       payload: result.data,

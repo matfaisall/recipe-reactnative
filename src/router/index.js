@@ -31,48 +31,46 @@ import {
   requestUserPermission,
 } from '../utils/PushNotification';
 
-const MyTab = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: () => {
-            return <Icon name="home" size={24} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Add Recipe"
-        component={AddRecipe}
-        options={{
-          tabBarIcon: () => {
-            return <Icon name="plus-square" size={24} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Chat"
-        component={Chat}
-        options={{
-          tabBarIcon: () => {
-            return <Icon name="message-circle" size={24} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarIcon: () => {
-            return <Icon name="user" size={24} />;
-          },
-        }}
-      />
-    </Tab.Navigator>
-  );
-};
+const MyTab = () => (
+  <Tab.Navigator>
+    <Tab.Screen
+      name="Home"
+      component={Home}
+      options={{
+        tabBarIcon: () => {
+          return <Icon name="home" size={24} />;
+        },
+      }}
+    />
+    <Tab.Screen
+      name="Add Recipe"
+      component={AddRecipe}
+      options={{
+        tabBarIcon: () => {
+          return <Icon name="plus-square" size={24} />;
+        },
+      }}
+    />
+    <Tab.Screen
+      name="Chat"
+      component={Chat}
+      options={{
+        tabBarIcon: () => {
+          return <Icon name="message-circle" size={24} />;
+        },
+      }}
+    />
+    <Tab.Screen
+      name="Profile"
+      component={Profile}
+      options={{
+        tabBarIcon: () => {
+          return <Icon name="user" size={24} />;
+        },
+      }}
+    />
+  </Tab.Navigator>
+);
 
 const Router = () => {
   // for fcm token
@@ -83,7 +81,7 @@ const Router = () => {
 
   // const isLogin = useSelector(state => state.loginReducer);
   return (
-    <NavigationContainer initialRouteName={Register}>
+    <NavigationContainer>
       <Stack.Navigator>
         {/* {isLogin.data ? (
         ) : (

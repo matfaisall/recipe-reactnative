@@ -12,7 +12,6 @@ import {
 
 import Icon from 'react-native-vector-icons/Feather';
 
-import fakePhoto from '../../assets/images/AuthPhoto.png';
 import GlobalStyle from '../../assets/styles/style';
 
 import {menuById} from '../../storages/actions/recipe';
@@ -20,10 +19,10 @@ import {useDispatch, useSelector} from 'react-redux';
 
 const DetailIngredients = ({route}) => {
   const dispatch = useDispatch();
-  const {itemId} = route.params;
-  console.log('menu by id detailingerefed', itemId);
   const {data, isLoading} = useSelector(state => state.menuByIdReducer);
-  console.log('ini data id', data);
+  const {itemId} = route.params;
+  console.log('menu by id', itemId);
+  // console.log('ini data id', data);
 
   useEffect(() => {
     dispatch(menuById(itemId));
@@ -38,7 +37,7 @@ const DetailIngredients = ({route}) => {
       <View>
         <View style={{width: '100%', height: 420}}>
           <Image
-            source={{uri: data.data.image}}
+            source={{uri: data?.data.image}}
             style={{width: '100%', height: '100%', resizeMode: 'cover'}}
           />
           <View style={styles.cardOverlay}>
@@ -46,11 +45,11 @@ const DetailIngredients = ({route}) => {
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View>
                 <Text style={{color: 'white', fontSize: 24, maxWidth: 280}}>
-                  {data.data.title}
+                  {data?.data.title}
                 </Text>
-                <Text style={{color: 'white'}}>Chaf: {data.data.author}</Text>
+                <Text style={{color: 'white'}}>Chaf: {data?.data.author}</Text>
                 <Text style={{color: 'white'}}>
-                  Total Like: {data.data.like_count}
+                  Total Like: {data?.data.like_count}
                 </Text>
               </View>
 
@@ -89,7 +88,7 @@ const DetailIngredients = ({route}) => {
                 Ingredients
               </Text>
               <View>
-                {data.data.ingredients.split(',').map((ingredient, index) => (
+                {data?.data.ingredients.split(',').map((ingredient, index) => (
                   <Text key={index}>
                     <Icon name="stop-circle" size={12} /> {ingredient.trim()}
                   </Text>
