@@ -9,6 +9,7 @@ import deleteMyMenuReducer from './deleteMyMenu';
 import updateMyMenuReducer from './updateMenu';
 import menuByIdReducer from './menuById';
 import searchMenuReducer from './searchMenu';
+import {logOutReducer} from './logOut';
 
 const rootReducer = combineReducers({
   loginReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   updateMyMenuReducer,
   menuByIdReducer,
   searchMenuReducer,
+  logOutReducer,
 });
 
 export default rootReducer;

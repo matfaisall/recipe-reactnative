@@ -14,12 +14,15 @@ import GlobalStyle from '../../assets/styles/style';
 import Icon from 'react-native-vector-icons/Feather';
 
 import fakeAvatar from '../../assets/images/fakeAvatar.jpg';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+
+import {logOut} from '../../storages/actions/auth';
 
 const Profile = ({navigation}) => {
+  const dispatch = useDispatch();
   // const userProfile = useSelector(state => state.loginReducer);
 
-  // const [photoProfile, setPhotoProfile] = useState(null);
+  const logOutHandler = () => [dispatch(logOut({navigation}))];
 
   return (
     <View style={{flex: 1}}>
@@ -107,6 +110,23 @@ const Profile = ({navigation}) => {
               />
             </View>
           </TouchableOpacity>
+
+          {/* button logout */}
+          <TouchableOpacity onPress={() => logOutHandler({navigation})}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                backgroundColor: 'red',
+                marginHorizontal: 16,
+                paddingVertical: 16,
+                borderRadius: 6,
+              }}>
+              <Text style={{color: '#FFF', fontWeight: '600', fontSize: 16}}>
+                Log Out
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -145,5 +165,9 @@ const styles = StyleSheet.create({
     height: 84,
     borderRadius: 84 / 2,
     overflow: 'hidden',
+  },
+  sub__title: {
+    fontSize: 14,
+    color: GlobalStyle.colors.font_secondary,
   },
 });

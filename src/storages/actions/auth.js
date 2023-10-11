@@ -69,3 +69,19 @@ export const register =
       console.log(error);
     }
   };
+
+export const logOut =
+  ({navigation}) =>
+  async dispatch => {
+    try {
+      dispatch({type: 'DELETE_TOKEN_PENDING'});
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        await AsyncStorage.removeItem('token');
+      }
+      dispatch({type: 'DELETE_TOKEN_SUCCESS'});
+      navigation.push('Login');
+    } catch (error) {
+      dispatch({type: 'DELETE_TOKEN_FAILED'});
+    }
+  };
