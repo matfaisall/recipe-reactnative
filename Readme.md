@@ -112,7 +112,7 @@ BASE_URL=[URL_API]
 - Type `npm run dev` To Start the local web
 
 ## Try My Mobile Application
-<a href="#" target="_blank" >Download Apps</a>
+<a href="https://drive.google.com/file/d/1aS1s24UkFue4N3STYyjhyBoLwLwbX5WS/view?usp=drive_link" target="_blank" >Download Apps</a>
 
 If you want to try our web application, you can use the following account :
 
@@ -196,9 +196,7 @@ password  : 123456
 </tr>
 </table>
 
-## Demo Mobile Application with gif file
 
-<!-- disini -->
 
 <!-- end screenshoots -->
 
