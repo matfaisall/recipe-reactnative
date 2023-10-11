@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = `https://alive-overshirt-bear.cyclic.app`;
+// const baseURL = `https://alive-overshirt-bear.cyclic.app`;
 
 import {BASE_URL} from '@env';
 
@@ -14,7 +14,6 @@ export const addRecipe =
     console.log('ini data recipe', dataRecipe);
 
     const instance = axios.create({
-      baseURL: baseURL,
       headers: {
         Authorization: `Bearer ${token} `,
         'Content-Type': 'multipart/form-data',
@@ -24,7 +23,7 @@ export const addRecipe =
     try {
       dispatch({type: 'ADD_RECIPE_PENDING'});
 
-      const result = await instance.post(baseURL + `/recipe`, dataRecipe);
+      const result = await instance.post(BASE_URL + `/recipe`, dataRecipe);
       console.log('ini result recipe action', result);
 
       dispatch({
@@ -48,7 +47,6 @@ export const addRecipe =
 export const getMenu = () => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   const instance = axios.create({
-    baseURL: baseURL,
     headers: {
       Authorization: `Bearer ${token} `,
     },
@@ -59,7 +57,7 @@ export const getMenu = () => async dispatch => {
       type: 'GET_MENU_PENDING',
     });
 
-    const result = await instance.get(baseURL + `/recipe`);
+    const result = await instance.get(BASE_URL + `/recipe`);
 
     dispatch({
       type: 'GET_MENU_SUCCESS',
@@ -115,7 +113,6 @@ export const searchMenu = (search, page) => async dispatch => {
 export const getMyMenu = () => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   const instance = axios.create({
-    baseURL: baseURL,
     headers: {
       Authorization: `Bearer ${token} `,
     },
@@ -127,7 +124,7 @@ export const getMyMenu = () => async dispatch => {
     });
 
     const result = await instance.get(
-      baseURL + `/recipe/filterdata?sortBy=title&sort=desc&limit=100`,
+      BASE_URL + `/recipe/filterdata?sortBy=title&sort=desc&limit=100`,
     );
 
     dispatch({
@@ -181,7 +178,6 @@ export const updateMenu =
   async dispatch => {
     const token = await AsyncStorage.getItem('token');
     const instance = axios.create({
-      baseURL: baseURL,
       headers: {
         Authorization: `Bearer ${token} `,
       },
@@ -198,7 +194,7 @@ export const updateMenu =
       // console.log('ini item id action', itemId);
 
       const result = await instance.put(
-        `${baseURL}/recipe/${itemId}`,
+        `${BASE_URL}/recipe/${itemId}`,
         formData,
       );
 
@@ -221,7 +217,6 @@ export const updateMenu =
 export const menuById = itemId => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   const instance = axios.create({
-    baseURL: baseURL,
     headers: {
       Authorization: `Bearer ${token} `,
     },
@@ -232,7 +227,7 @@ export const menuById = itemId => async dispatch => {
       type: 'GET_MENUBYID_PENDING',
     });
 
-    const result = await instance.get(`${baseURL}/recipe/${itemId}`);
+    const result = await instance.get(`${BASE_URL}/recipe/${itemId}`);
     dispatch({
       type: 'GET_MENUBYID_SUCCESS',
       payload: result.data,
