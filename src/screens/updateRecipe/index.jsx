@@ -6,6 +6,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 
@@ -13,47 +14,30 @@ import GlobalStyle from '../../assets/styles/style';
 import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'react-native-image-picker';
-import {useRoute} from '@react-navigation/native';
 
 import {menuById, updateMenu} from '../../storages/actions/recipe';
 import {useDispatch, useSelector} from 'react-redux';
 
 const UpdateRecipe = ({route, navigation}) => {
   const dispatch = useDispatch();
+  const {data, isLoading} = useSelector(state => state.menuByIdReducer);
+
   const {itemId} = route.params;
+  const recipeId = data?.data;
+  console.log('ini recipe', recipeId);
+  console.log('ini itemid', itemId);
+  console.log('ini data', data?.data);
 
-  const recipeId = useSelector(state => state.menuByIdReducer);
-  // const getRecipe = data.data.data;
-
-  const {
-    data: {data},
-  } = recipeId;
-
-  // console.log(recipeId);
-  // console.log('ini test', data);
-
+  const valueCategory = data?.data.category_id;
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(data.category_id);
+  const [value, setValue] = useState();
   const [items, setItems] = useState([
     {label: 'Main course', value: '1'},
     {label: 'Appetizer', value: '2'},
     {label: 'Dessert', value: '3'},
   ]);
-
-  const [recipePicture, setRecipePicture] = useState(data.image);
+  const [recipePicture, setRecipePicture] = useState(data?.data.image);
   // console.log(recipePicture);
-
-  useEffect(() => {
-    if (data) {
-      setInputData({
-        title: data?.title,
-        ingredients: data?.ingredients,
-        category_id: value,
-        image_url: data?.image,
-      });
-      setValue(data?.category_id);
-    }
-  }, [data]);
 
   const [inputData, setInputData] = useState({
     title: '',
@@ -61,10 +45,24 @@ const UpdateRecipe = ({route, navigation}) => {
     category_id: '',
     image_url: '',
   });
+  console.log('ini value', value);
+  console.log('ini input data', inputData);
 
   useEffect(() => {
     dispatch(menuById(itemId));
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      setInputData({
+        title: data?.data.title,
+        ingredients: data?.data.ingredients,
+        category_id: value,
+        image_url: data?.data.image,
+      });
+      setValue(data?.data.category_id);
+    }
+  }, [data]);
 
   const galleryLaunch = () => {
     let options = {
@@ -90,7 +88,7 @@ const UpdateRecipe = ({route, navigation}) => {
     let formData = new FormData();
     formData.append('title', inputData.title);
     formData.append('ingredients', inputData.ingredients);
-    formData.append('category_id', inputData.category_id);
+    formData.append('category_id', value);
 
     if (recipePicture) {
       formData.append('image', {
@@ -99,6 +97,8 @@ const UpdateRecipe = ({route, navigation}) => {
         type: recipePicture?.type,
       });
     }
+
+    console.log('ini form data', formData);
 
     dispatch(updateMenu(itemId, formData, {navigation}));
   };
@@ -198,7 +198,36 @@ const UpdateRecipe = ({route, navigation}) => {
           />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+            height: 180,
+            width: '100%',
+            backgroundColor: GlobalStyle.colors.bg_third,
+            borderRadius: 10,
+          }}>
+          {recipePicture && (
+            <Image
+              resizeMode="cover"
+              style={{height: '100%', width: '100%', borderRadius: 10}}
+              source={{uri: recipePicture.uri}}
+            />
+          )}
+          {!recipePicture && inputData.image && (
+            <Image
+              resizeMode="cover"
+              style={{height: '100%', width: '100%', borderRadius: 10}}
+              source={{uri: inputData.image}}
+            />
+          )}
+        </View>
+        <Text style={{color: 'red', fontSize: 12}}>
+          * harap mengisi semua field yang ada
+        </Text>
+        <View>
           <TouchableOpacity style={styles.buttonStyle} onPress={handlerUpdate}>
             <Text
               style={{

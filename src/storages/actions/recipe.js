@@ -206,7 +206,7 @@ export const updateMenu =
         type: 'UPDATE_MENU_SUCCESS',
         payload: result.data,
       });
-      navigation.navigate('MyRecipe');
+      navigation.navigate('SearchRecipe');
     } catch (error) {
       dispatch({
         type: 'UPDATE_MENU_FAILED',

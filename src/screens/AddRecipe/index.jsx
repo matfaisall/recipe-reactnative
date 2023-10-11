@@ -8,6 +8,8 @@ import {
   Button,
   TouchableOpacity,
   ToastAndroid,
+  Image,
+  ScrollView,
 } from 'react-native';
 
 import GlobalStyle from '../../assets/styles/style';
@@ -72,97 +74,119 @@ const AddRecipe = ({navigation}) => {
   // }, []);
 
   return (
-    <View style={[GlobalStyle.container, {paddingTop: 16, flex: 1}]}>
-      <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-      <View style={{marginTop: 24, alignItems: 'center'}}>
-        <Text
-          style={{
-            color: GlobalStyle.colors.font_primary,
-            fontSize: 24,
-            fontWeight: 'bold',
-          }}>
-          Add Your Recipe
-        </Text>
-      </View>
-
-      <View style={{marginTop: 24}}>
-        <View style={styles.search__wrapper}>
-          <Icon
-            style={{paddingHorizontal: 8}}
-            name="book-open"
-            size={24}
-            color={GlobalStyle.colors.font_secondary}
-          />
-          <TextInput
-            placeholder="Title"
-            onChangeText={value => setTitle(value)}
-            // value={inputData.title}
-            placeholderTextColor={GlobalStyle.colors.font_secondary}
-            style={{color: GlobalStyle.colors.font_primary, width: '100%'}}
-          />
-        </View>
-        <View style={[styles.search__wrapper, {marginTop: 16}]}>
-          <Icon
-            style={{paddingHorizontal: 8}}
-            name="book"
-            size={24}
-            color={GlobalStyle.colors.font_secondary}
-          />
-          <TextInput
-            multiline
-            numberOfLines={6}
-            placeholder="Ingredients"
-            onChangeText={value => setIngredients(value)}
-            // value={inputData.Ingredients}
-            placeholderTextColor={GlobalStyle.colors.font_secondary}
-            style={{color: GlobalStyle.colors.font_primary, width: '100%'}}
-          />
-        </View>
-
-        <View style={{marginTop: 16}}>
-          <TouchableOpacity
-            style={styles.buttonStyleImage}
-            onPress={() => galleryLaunch()}>
-            <Text
-              style={{
-                color: 'black',
-                fontSize: 14,
-                paddingStart: 10,
-              }}>
-              Add Image
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={{marginTop: 16}}>
-          <DropDownPicker
+    <ScrollView>
+      <View style={[GlobalStyle.container, {paddingTop: 16, flex: 1}]}>
+        <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
+        <View style={{marginTop: 24, alignItems: 'center'}}>
+          <Text
             style={{
-              backgroundColor: GlobalStyle.colors.bg_third,
-              width: '100%',
-              borderWidth: 0,
-            }}
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-          />
+              color: GlobalStyle.colors.font_primary,
+              fontSize: 24,
+              fontWeight: 'bold',
+            }}>
+            Add Your Recipe
+          </Text>
         </View>
 
-        <View style={{marginTop: 20}}>
-          <TouchableOpacity style={styles.buttonStyle} onPress={handlerPost}>
-            <Text
+        <View style={{marginTop: 24}}>
+          <View style={styles.search__wrapper}>
+            <Icon
+              style={{paddingHorizontal: 8}}
+              name="book-open"
+              size={24}
+              color={GlobalStyle.colors.font_secondary}
+            />
+            <TextInput
+              placeholder="Title"
+              onChangeText={value => setTitle(value)}
+              // value={inputData.title}
+              placeholderTextColor={GlobalStyle.colors.font_secondary}
+              style={{color: GlobalStyle.colors.font_primary, width: '100%'}}
+            />
+          </View>
+          <View style={[styles.search__wrapper, {marginTop: 16}]}>
+            <Icon
+              style={{paddingHorizontal: 8}}
+              name="book"
+              size={24}
+              color={GlobalStyle.colors.font_secondary}
+            />
+            <TextInput
+              multiline
+              numberOfLines={6}
+              placeholder="Ingredients"
+              onChangeText={value => setIngredients(value)}
+              // value={inputData.Ingredients}
+              placeholderTextColor={GlobalStyle.colors.font_secondary}
+              style={{color: GlobalStyle.colors.font_primary, width: '100%'}}
+            />
+          </View>
+
+          <View style={{marginTop: 16}}>
+            <TouchableOpacity
+              style={styles.buttonStyleImage}
+              onPress={() => galleryLaunch()}>
+              <Text
+                style={{
+                  color: 'black',
+                  fontSize: 14,
+                  paddingStart: 10,
+                }}>
+                Add Image
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{marginTop: 16}}>
+            <DropDownPicker
               style={{
-                color: 'white',
-                fontSize: 16,
-              }}>
-              POST
-            </Text>
-          </TouchableOpacity>
+                backgroundColor: GlobalStyle.colors.bg_third,
+                width: '100%',
+                borderWidth: 0,
+              }}
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+            />
+          </View>
+
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 20,
+              height: 180,
+              width: '100%',
+              backgroundColor: GlobalStyle.colors.bg_third,
+              borderRadius: 10,
+            }}>
+            {recipePicture && (
+              <Image
+                resizeMode="cover"
+                style={{height: '100%', width: '100%', borderRadius: 10}}
+                source={{uri: recipePicture.uri}}
+              />
+            )}
+          </View>
+
+          <View style={{marginTop: 20}}>
+            <TouchableOpacity style={styles.buttonStyle} onPress={handlerPost}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 16,
+                }}>
+                POST
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
